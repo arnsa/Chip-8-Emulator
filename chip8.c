@@ -180,7 +180,7 @@ int main(){
                          break;
        
                          case 0x0004: // 8XY4: Adds VY to VX. VF is set to 1 when there's a carry, and to 0 when there isn't
-                             if(((int)V[(opcode & 0x0F00) >> 8 ] + (int)V[(opcode & 0x00F0) >> 4]) < 255){
+                             if(((int)V[(opcode & 0x0F00) >> 8 ] + (int)V[(opcode & 0x00F0) >> 4]) < 256){
                                  V[0xF] = 0;
                              }else{
                                  V[0xF] = 1;
@@ -190,7 +190,7 @@ int main(){
                          break;
        
                          case 0x0005: // 8XY5: VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't
-                             if(((int)V[(opcode & 0x0F00) >> 8 ] - (int)V[(opcode & 0x00F0) >> 4]) > 0){
+                             if(((int)V[(opcode & 0x0F00) >> 8 ] - (int)V[(opcode & 0x00F0) >> 4]) >= 0){
                                  V[0xF] = 1;
                              }else{
                                  V[0xF] = 0;
@@ -211,7 +211,7 @@ int main(){
                              }else{
                                  V[0xF] = 0;
                              }
-                             V[(opcode & 0x0F00) >> 8] = V[(opcode & 0x0F00) >> 8] - V[(opcode & 0x00F0) >> 4];
+                             V[(opcode & 0x0F00) >> 8] = V[(opcode & 0x00F0) >> 4] - V[(opcode & 0x0F00) >> 8];
                              pc += 2;
                          break;
        
